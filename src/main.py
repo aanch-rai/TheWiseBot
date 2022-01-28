@@ -1,6 +1,6 @@
 import discord
 import markovify
-TOKEN = 'aqw'
+TOKEN = ''
 
 #handling the txt files for markovify
 filename_m = "meanings.txt"
@@ -12,8 +12,12 @@ file_w = open(filename_w)
 text_m = file_m.read()
 text_w = file_w.read()
 
+word_list = ['word']
+meaning_list = ['meaning']
+
 #connecting to Discord
 client = discord.Client()
+
 
 #Event to come online
 @client.event
@@ -40,7 +44,20 @@ async def on_message(message):
         elif user_message.lower() == 'word please':
             model_m = markovify.Text(text_m,state_size=2)
             model_w = markovify.Text(text_w,state_size=1)
-            await message.channel.send(f'Word --->>  {model_w.make_sentence()[0:12]}\nMeaning --->> {model_m.make_sentence()}')
+            word = model_w.make_sentence()[0:12]
+            meaning = model_m.make_sentence()
+
+            while(word in word_list or not word):
+                word = model_w.make_sentence()[0:12]
+            word_list.append(word);
+
+            while(meaning in meaning_list or not meaning):
+                meaning = model_m.make_sentence()
+
+            meaning_list.append(meaning)
+
+
+            await message.channel.send(f'The new word I created is :   {word}\nAnd it means :   {meaning}')
             return
 
         elif user_message.lower() == 'bye':
