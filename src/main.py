@@ -1,6 +1,6 @@
 import discord
 import markovify
-TOKEN = 'OTMzODc2MTc4MTU3MTk1MzU0.Yen59w.Kyw6NNA3WIJJKoOUobDeUh5VboE'
+TOKEN = 'aqw'
 
 #handling the txt files for markovify
 filename_m = "meanings.txt"
